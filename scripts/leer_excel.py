@@ -4,9 +4,11 @@
 
 import pandas as pd
 
-ventas = pd.read_csv("data/ventas.csv")
+# Cargar la hoja ventas, y especificar el nombre de la hoja
+ventas = pd.read_excel("data/ventas.xlsx", sheet_name="ventas")
+
+# Imprimir las primeras filas, dimensiones y tipos de datos
 print(ventas.head())
-# imprimir las dimensiones
 print("Dimensiones:", ventas.shape)
-print("\n Tipos por columna")
+print("\nTipos por columna:")
 print(ventas.dtypes)
