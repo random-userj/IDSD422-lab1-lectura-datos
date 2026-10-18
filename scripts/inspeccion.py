@@ -1,12 +1,23 @@
-# inspeccion.py — Tipos, columna derivada e indicadores (Python)
-# Completa los pasos marcados con TODO. Ejecuta desde la raíz del repositorio:
+# inspeccion.py — Inspección y cálculo de indicadores (Python)
+# Ejecuta desde la raíz del repositorio:
 #   python scripts/inspeccion.py
 
-# TODO 1: carga data/ventas.csv
-# TODO 2: imprime los tipos (dtypes) de cada columna
-# TODO 3: crea la columna derivada "ticket" = ventas / clientes
-# TODO 4: calcula e imprime:
-#         - venta promedio por sucursal
-#         - ticket promedio (ventas totales / clientes totales)
-#         - sucursal con mayor y menor venta
-#         - región con mayor venta total
+import pandas as pd
+
+ventas = pd.read_csv("data/ventas.csv")
+ventas["ticket"] = ventas["ventas"] / ventas["clientes"]
+print(ventas.head())
+
+# Venta promedio y ticket promedio
+print("Venta promedio por sucursal:", ventas["ventas"].mean())
+print("Ticket promedio:", ventas["ticket"].mean())
+
+# Sucursal con mayor y menor ventas
+print("Sucursal con mayor ventas:", ventas.loc[ventas["ventas"].idxmax(), "sucursal"])
+print("Sucursal con menor ventas:", ventas.loc[ventas["ventas"].idxmin(), "sucursal"])
+
+# Región con mayor venta total
+ventas_region = ventas.groupby("region")["ventas"].sum()
+print("\nVentas por region:")
+print(ventas_region)
+print("Region con mayor venta total:", ventas_region.idxmax())
